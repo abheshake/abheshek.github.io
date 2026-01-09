@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Editor Portfolio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            background-image: url('https://images.unsplash.com/photo-1536240478700-b869070f9279?w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 10, 10, 0.85);
+            z-index: -1;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 30px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+        }
+
+        .logo span:first-child {
+            color: #fff;
+        }
+
+        .logo span:last-child {
+            color: #e63946;
+        }
+
+        .hamburger {
+            width: 35px;
+            height: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .hamburger:hover span {
+            background: #e63946;
+        }
+
+        .hamburger span {
+            width: 100%;
+            height: 3px;
+            background: #e63946;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            background: radial-gradient(ellipse at center, #1a1a1a 0%, #0a0a0a 70%);
+        }
+
+        .video-icon-wrapper {
+            margin-bottom: 40px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .video-icon {
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, #e63946 0%, #d62828 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 60px rgba(230, 57, 70, 0.4);
+            position: relative;
+        }
+
+        .video-icon::before {
+            content: '▶';
+            font-size: 50px;
+            color: #fff;
+            margin-left: 8px;
+        }
+
+        .hero h1 {
+            font-size: 72px;
+            font-weight: 900;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff 30%, #e63946 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .scroll-indicator::after {
+            content: '↓';
+            font-size: 30px;
+            color: #e63946;
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 60px;
+        }
+
+        .intro-section {
+            margin-bottom: 100px;
+        }
+
+        .intro-section h2 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            line-height: 1.3;
+        }
+
+        .intro-section h2 .name {
+            color: #e63946;
+        }
+
+        .intro-section h2 .title {
+            color: #e63946;
+            font-weight: 900;
+        }
+
+        .intro-section p {
+            color: #b8b8b8;
+            font-size: 17px;
+            line-height: 1.9;
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+
+        .portfolio-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid #1a1a1a;
+        }
+
+        .portfolio-header h3 {
+            font-size: 36px;
+            font-weight: 700;
+        }
+
+        .video-count {
+            background: #e63946;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .featured-video {
+            margin-bottom: 60px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .featured-video::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid rgba(230, 57, 70, 0.3);
+            border-radius: 15px;
+            pointer-events: none;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 600px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-placeholder::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(230, 57, 70, 0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .play-icon {
+            width: 100px;
+            height: 100px;
+            background: #e63946;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 1;
+            box-shadow: 0 10px 40px rgba(230, 57, 70, 0.5);
+        }
+
+        .play-icon:hover {
+            transform: scale(1.1);
+            background: #d62828;
+        }
+
+        .play-icon::after {
+            content: '▶';
+            font-size: 40px;
+            color: #fff;
+            margin-left: 5px;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .video-item {
+            background: #111;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.4s;
+            position: relative;
+        }
+
+        .video-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(230, 57, 70, 0.2) 0%, transparent 100%);
+            opacity: 0;
+            transition: 0.4s;
+            z-index: 1;
+        }
+
+        .video-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(230, 57, 70, 0.3);
+        }
+
+        .video-item:hover::before {
+            opacity: 1;
+        }
+
+        .video-thumb {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .video-thumb .play-btn {
+            width: 60px;
+            height: 60px;
+            background: rgba(230, 57, 70, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .video-item:hover .play-btn {
+            background: #e63946;
+            transform: scale(1.15);
+        }
+
+        .video-thumb .play-btn::after {
+            content: '▶';
+            font-size: 24px;
+            color: #fff;
+            margin-left: 3px;
+        }
+
+        .video-details {
+            padding: 20px;
+        }
+
+        .video-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .video-time {
+            color: #888;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        @media (max-width: 1024px) {
+            .video-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 20px 30px;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+                letter-spacing: 4px;
+            }
+
+            .content {
+                padding: 60px 30px;
+            }
+
+            .intro-section h2 {
+                font-size: 32px;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .video-placeholder {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <span>ABHI</span><span>SHEK</span>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <div class="content">
+        <section class="intro-section">
+            <h2>I'm <span class="name">Abhishek</span><br>I'm a <span class="title">Cinematographer</span></h2>
+            <p>
+                Video editing is another way for me to tell a visual story. Whether it is mine or others'.
+                It looks like a simple sequence of images but the true skill is to make the images feel like a flawless flow. That
+                is why, whenever I edit, I value the rhythm a lot. The rhythm of the story as I perceive it, given by the angles,
+                camera motions, actors, the music, the lines, the silences in each take. Either a movie or a music video, it is a
+                very complex process that has to take each element into consideration to make them work and move together in
+                harmony.
+            </p>
+            <p>
+                Editing was my first love in the visual world of movement. Throughout the years, I edited tv-shows, experimental
+                movies, short-movies, music videos, documentaries and in the past ten years I worked mainly on advertising projects.
+            </p>
+        </section>
+    </div>
+
+    <script>
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            this.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.video-item, .featured-video').forEach(item => {
+            item.addEventListener('click', () => {
+                alert('Video player opens here');
+            });
+        });
+    </script>
+</body>
+</html>
